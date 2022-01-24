@@ -13,11 +13,6 @@ namespace Eauction_Seller_API.Controllers
     [Route("e-auction/api/v1/[controller]")]
     public class SellerController : ControllerBase
     {
-        //private static readonly string[] Summaries = new[]
-        //{
-        //    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        //};
-
         private readonly ILogger<SellerController> _logger;
         ICosmosSellerAdapter _adapter;
         public SellerController(ICosmosSellerAdapter adapter,ILogger<SellerController> logger)
@@ -25,36 +20,6 @@ namespace Eauction_Seller_API.Controllers
             _adapter = adapter;
             _logger = logger;
         }
-
-        //[HttpGet("createdb")]
-        //public async Task<IActionResult> CreateDatabase()
-        //{
-        //    var result = await _adapter.CreateDatabase("cosmos-db-eauction");
-        //    return Ok(result);
-        //}
-
-        //[HttpGet("createcollection")]
-        //public async Task<IActionResult> CreateCollection()
-        //{
-        //    var result = await _adapter.CreateCollection("cosmos-db-eauction", "eauction-seller-collection");
-        //    return Ok(result);
-        //}
-
-        //[HttpPost("CreateDocument")]
-        //public async Task<IActionResult> CreateDocument([FromBody] SellerInfo seller)
-        //{
-        //    var result = await _adapter.CreateDocument("cosmos-db-eauction", "eauction-seller-collection", seller);
-        //    return Ok(result);
-        //}
-
-        //[HttpGet("get-products")]
-        //public async Task<ActionResult> GetProducts()
-        //{
-        //    _logger.LogInformation("Start fetching Products");
-
-        //    var result = await _adapter.GetAllProducts();
-        //    return Ok(result);
-        //}
 
         [HttpGet("get-products")]
         public async Task<ActionResult> GetProducts()

@@ -23,8 +23,8 @@ namespace Eauction_Seller_API.DataAccess
         private readonly ISellerRepository _repository;
         private readonly ICacheAdapter _cacheService;
         public CosmosSellerAdapter(
-         ICosmosConnection connection,
-         IConfiguration config,
+         //ICosmosConnection connection,
+         //IConfiguration config,
          ISellerRepository sellerRepository, ICacheAdapter cacheService)
         {
             _repository = sellerRepository;
