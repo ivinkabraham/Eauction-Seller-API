@@ -59,6 +59,10 @@ namespace Eauction_Seller_API
 
             app.UseAuthorization();
 
+            app.UseCors(cors => cors.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
+           // app.UseMiddleware<ExceptionMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

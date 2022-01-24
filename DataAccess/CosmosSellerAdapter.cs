@@ -16,21 +16,22 @@ namespace Eauction_Seller_API.DataAccess
 {
     public class CosmosSellerAdapter: ICosmosSellerAdapter
     {
-        private readonly DocumentClient _client;
-        private readonly string _accountUrl;
-        private readonly string _primarykey;
+        //private readonly DocumentClient _client;
+        //private readonly string _accountUrl;
+        //private readonly string _primarykey;
 
         private readonly ISellerRepository _repository;
-        private readonly ICacheAdapter _cacheAdapter;
+        private readonly ICacheAdapter _cacheService;
         public CosmosSellerAdapter(
          ICosmosConnection connection,
          IConfiguration config,
-         ISellerRepository sellerRepository)
+         ISellerRepository sellerRepository, ICacheAdapter cacheService)
         {
             _repository = sellerRepository;
-            _accountUrl = config.GetValue<string>("Cosmos:AccountURL");
-            _primarykey = config.GetValue<string>("Cosmos:AuthKey");
-            _client = new DocumentClient(new Uri(_accountUrl), _primarykey);
+            //_accountUrl = config.GetValue<string>("Cosmos:AccountURL");
+            //_primarykey = config.GetValue<string>("Cosmos:AuthKey");
+            //_client = new DocumentClient(new Uri(_accountUrl), _primarykey);
+            _cacheService = cacheService;
         }
 
 
@@ -98,12 +99,12 @@ namespace Eauction_Seller_API.DataAccess
         {
             var bidsDetails = new BidDetails();
             //Reading from Redis Cache
-            var prodInfo = await _cacheAdapter.Get<Product>(productId);
+            var prodInfo = await _cacheService.Get<Product>(productId);
             if (prodInfo == null)
             {
                 prodInfo = await _repository.GetProduct(productId);
                 if (prodInfo != null)
-                    await _cacheAdapter.Set<Product>(productId, JsonConvert.SerializeObject(prodInfo));
+                    await _cacheService.Set<Product>(productId, JsonConvert.SerializeObject(prodInfo));
             }
             bidsDetails.ProductInfo = prodInfo;
             bidsDetails.BidList = await _repository.GetBids(productId);
