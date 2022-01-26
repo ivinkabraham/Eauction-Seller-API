@@ -36,9 +36,22 @@ namespace Eauction_Seller_API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EauctionSellerAPI", Version = "v1" });
             });
 
-            services.AddScoped<ICacheAdapter, CacheAdapter>();
+            services.AddScoped<ICacheService, CacheService>();
+            //services.AddScoped<IRabbitMqListener, RabbitMqListener>();
 
-            services.AddScoped<ICosmosSellerAdapter, CosmosSellerAdapter>();
+            //services.AddSingleton(service => {
+            //    var _config = Configuration.GetSection("RabbitMQ");
+            //    return new ConnectionFactory()
+            //    {
+            //        HostName = _config["HostName"],
+            //        UserName = _config["UserName"],
+            //        Password = _config["Password"],
+            //        Port = Convert.ToInt32(_config["Port"]),
+            //        VirtualHost = _config["VirtualHost"],
+            //    };
+            //});
+            services.AddDistributedMemoryCache();
+            services.AddScoped<ICosmosSellerService, CosmosSellerService>();
             services.AddSingleton<ISellerRepository>(InitializeCosmosDbClientInstance(Configuration.GetSection("Cosmos")).GetAwaiter().GetResult());
             services.AddCors(c => { c.AddPolicy("AllowOrigin", option => option.AllowAnyMethod()); });
         }

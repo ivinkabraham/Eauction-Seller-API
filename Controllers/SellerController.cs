@@ -14,8 +14,8 @@ namespace Eauction_Seller_API.Controllers
     public class SellerController : ControllerBase
     {
         private readonly ILogger<SellerController> _logger;
-        ICosmosSellerAdapter _adapter;
-        public SellerController(ICosmosSellerAdapter adapter,ILogger<SellerController> logger)
+        ICosmosSellerService _adapter;
+        public SellerController(ICosmosSellerService adapter,ILogger<SellerController> logger)
         {
             _adapter = adapter;
             _logger = logger;

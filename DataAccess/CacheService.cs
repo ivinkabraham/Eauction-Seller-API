@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Eauction_Seller_API.DataAccess
 {
-    public class CacheAdapter: ICacheAdapter
+    public class CacheService: ICacheService
     {
         private readonly IDistributedCache _distrCache;
 
-        public CacheAdapter(IDistributedCache cache)
+        public CacheService(IDistributedCache cache)
         {
             _distrCache = cache;
         }
