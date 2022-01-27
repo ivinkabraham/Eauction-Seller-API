@@ -13,7 +13,7 @@ namespace Eauction_Seller_API.Repositories
         public SellerRepository(CosmosClient client, string databaseName, string containerName)
         {
             container = client.GetContainer(databaseName, containerName);
-            buyerContainer = client.GetContainer(databaseName, "Buyers");
+            buyerContainer = client.GetContainer(databaseName, "eauction-buyer-collection");
         }
 
         public async Task<List<Product>> GetAllProducts()
@@ -24,9 +24,6 @@ namespace Eauction_Seller_API.Repositories
 
         public async Task<Product> GetProduct(string productId)
         {
-            // var response=   await container.ReadItemAsync<Product>("863ab1c4-5385-499f-b78e-183c9874ea1f", new PartitionKey(productId));
-            //  return response.Resource;
-
             IQueryable<Product> queryable = container.GetItemLinqQueryable<Product>(true);
             queryable = queryable.Where(item => item.Id == productId);
             return await Task.FromResult(queryable.ToArray().FirstOrDefault());
