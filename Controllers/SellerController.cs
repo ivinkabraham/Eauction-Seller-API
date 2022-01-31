@@ -21,6 +21,16 @@ namespace Eauction_Seller_API.Controllers
             _logger = logger;
         }
 
+        [HttpGet("get-data")]
+        public async Task<ActionResult> GetData()
+        {
+            //_logger.LogInformation("Start fetching Products");
+
+            //var result = await _adapter.GetAllProducts();
+            var result = "Test Data";
+            return Ok(result);
+        }
+
         [HttpGet("get-products")]
         public async Task<ActionResult> GetProducts()
         {
