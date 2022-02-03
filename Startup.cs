@@ -14,6 +14,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
+using Eauction_Seller_API.MessageSharer;
+using RabbitMQ.Client;
+using Eauction_Seller_API.Common;
 
 namespace Eauction_Seller_API
 {
@@ -37,19 +40,20 @@ namespace Eauction_Seller_API
             });
 
             services.AddScoped<ICacheService, CacheService>();
-            //services.AddScoped<IRabbitMqListener, RabbitMqListener>();
+            services.AddScoped<IRabbitMQListener, RabbitMQListener>();
 
-            //services.AddSingleton(service => {
-            //    var _config = Configuration.GetSection("RabbitMQ");
-            //    return new ConnectionFactory()
-            //    {
-            //        HostName = _config["HostName"],
-            //        UserName = _config["UserName"],
-            //        Password = _config["Password"],
-            //        Port = Convert.ToInt32(_config["Port"]),
-            //        VirtualHost = _config["VirtualHost"],
-            //    };
-            //});
+            services.AddSingleton(service =>
+            {
+                var _config = Configuration.GetSection("RabbitMQ");
+                return new ConnectionFactory()
+                {
+                    HostName = _config["HostName"],
+                    UserName = _config["UserName"],
+                    Password = _config["Password"],
+                    Port = Convert.ToInt32(_config["Port"]),
+                    VirtualHost = _config["VirtualHost"],
+                };
+            });
             services.AddDistributedMemoryCache();
             services.AddScoped<ICosmosSellerService, CosmosSellerService>();
             services.AddSingleton<ISellerRepository>(InitializeCosmosDbClientInstance(Configuration.GetSection("Cosmos")).GetAwaiter().GetResult());
@@ -74,7 +78,7 @@ namespace Eauction_Seller_API
 
             app.UseCors(cors => cors.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
-           // app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<AppExceptionHandler>();
 
             app.UseEndpoints(endpoints =>
             {

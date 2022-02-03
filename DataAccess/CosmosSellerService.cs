@@ -13,16 +13,16 @@ namespace Eauction_Seller_API.DataAccess
     {
         private readonly ISellerRepository _repository;
         private readonly ICacheService _cacheService;
-        //private readonly IRabbitMQListener _rabbitMQListener;
+        private readonly IRabbitMQListener _rabbitMQListener;
         public CosmosSellerService(
          ISellerRepository sellerRepository, 
-         ICacheService cacheService//, 
-        // IRabbitMQListener rabbitMQListener
+         ICacheService cacheService, 
+         IRabbitMQListener rabbitMQListener
             )
         {
             _repository = sellerRepository;
             _cacheService = cacheService;
-           // _rabbitMQListener = rabbitMQListener;
+            _rabbitMQListener = rabbitMQListener;
         }
 
         public async Task<List<Product>> GetAllProducts()
@@ -59,7 +59,7 @@ namespace Eauction_Seller_API.DataAccess
             bidsDetails.BidList = await _repository.GetBids(productId);
 
             //Read from Rabbitmq queue
-           // _rabbitMQListener.Receive();
+            _rabbitMQListener.Receive();
 
             return bidsDetails;
         }
