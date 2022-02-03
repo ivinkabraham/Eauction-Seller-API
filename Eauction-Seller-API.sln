@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eauction-Seller-API", "Eauction-Seller-API.csproj", "{1C552691-FE48-4958-A070-3E5DC1DB6FB8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eauction-Seller-API-Test", "..\Eauction-Seller-API-Test\Eauction-Seller-API-Test.csproj", "{A8D0D3DC-8FAC-4608-B6B2-98209F91C5E5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{1C552691-FE48-4958-A070-3E5DC1DB6FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C552691-FE48-4958-A070-3E5DC1DB6FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C552691-FE48-4958-A070-3E5DC1DB6FB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8D0D3DC-8FAC-4608-B6B2-98209F91C5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8D0D3DC-8FAC-4608-B6B2-98209F91C5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8D0D3DC-8FAC-4608-B6B2-98209F91C5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8D0D3DC-8FAC-4608-B6B2-98209F91C5E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
