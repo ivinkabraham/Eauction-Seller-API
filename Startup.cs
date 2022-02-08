@@ -40,6 +40,10 @@ namespace Eauction_Seller_API
             });
 
             services.AddScoped<ICacheService, CacheService>();
+            services.AddStackExchangeRedisCache(option =>
+            {
+                option.Configuration = Configuration.GetValue<string>("RedisCacheConString");
+            });
             services.AddScoped<IRabbitMQListener, RabbitMQListener>();
 
             services.AddSingleton(service =>
