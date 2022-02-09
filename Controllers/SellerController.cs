@@ -14,10 +14,10 @@ namespace Eauction_Seller_API.Controllers
     public class SellerController : ControllerBase
     {
         private readonly ILogger<SellerController> _logger;
-        ICosmosSellerService _adapter;
+        ICosmosSellerService _service;
         public SellerController(ICosmosSellerService adapter,ILogger<SellerController> logger)
         {
-            _adapter = adapter;
+            _service = adapter;
             _logger = logger;
         }
 
@@ -36,7 +36,7 @@ namespace Eauction_Seller_API.Controllers
         {
             _logger.LogInformation("Start fetching Products");
 
-            var result = await _adapter.GetAllProducts();
+            var result = await _service.GetAllProducts();
             return Ok(result);
         }
 
@@ -46,7 +46,7 @@ namespace Eauction_Seller_API.Controllers
         {
             _logger.LogInformation("Start fetching Products by id:" + productId);
 
-            var result = await _adapter.GetBids(productId);
+            var result = await _service.GetBids(productId);
             return Ok(result);
         }
 
@@ -54,14 +54,14 @@ namespace Eauction_Seller_API.Controllers
         [Route("add-product")]
         public async Task<ActionResult> Post([FromBody] Product product)
         {
-            await _adapter.AddProduct(product);
+            await _service.AddProduct(product);
             return Created("add-product", product);
         }
 
         [HttpDelete("delete/{productId}")]
         public async Task<IActionResult> Delete(string productId)
         {
-            await _adapter.DeleteProductAsync(productId);
+            await _service.DeleteProductAsync(productId);
             return NoContent();
         }
     }
